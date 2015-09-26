@@ -93,9 +93,13 @@ use_janrain(auth, filename='private/janrain.key')
 
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
+db.define_table('resourceOwners', 
+    Field('resourceOwnerName', 'text', requires=IS_NOT_EMPTY())
+    )
+
 db.define_table('credentials', 
     Field('account', 'reference auth_user', requires=IS_NOT_EMPTY()), 
-    Field('resourceOwner', 'text', requires=IS_NOT_EMPTY()), 
+    Field('resourceOwner', 'reference resourceOwners', requires=IS_NOT_EMPTY()), 
     Field('accessToken', 'text', requires=IS_NOT_EMPTY()),
     Field('tokenType', 'text', requires=IS_NOT_EMPTY()),
     Field('expiresIn', 'integer', requires=IS_NOT_EMPTY()),
