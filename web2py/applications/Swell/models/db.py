@@ -51,12 +51,12 @@ plugins = PluginManager()
 auth.define_tables(username=False, signature=False)
 
 ## configure Janrain
-from gluon.contrib.login_methods.rpx_account import RPXAccount
-auth.settings.actions_disabled=['register','change_password','request_reset_password']
-auth.settings.login_form = RPXAccount(request,
-    api_key='74a75586642a8af36e73aa035d3a5711022ae59c',
-    domain='swell',
-    url = "http://127.0.0.1:8000/swell/default/user/login")
+#from gluon.contrib.login_methods.rpx_account import RPXAccount
+#auth.settings.actions_disabled=['register','change_password','request_reset_password']
+#auth.settings.login_form = RPXAccount(request,
+#    api_key='74a75586642a8af36e73aa035d3a5711022ae59c',
+#    domain='swell',
+#    url = "http://127.0.0.1:8000/swell/default/user/login")
 
 ## configure email
 mail = auth.settings.mailer
