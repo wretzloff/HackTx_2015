@@ -1,1 +1,7 @@
 {{extend 'layout.html'}}
+
+{{if len(devicesList) > 0:}}
+<h3>Devices: {{=devicesList}}</h3>
+{{else:}}
+<h3>You have no devices.</h3>
+{{pass}}

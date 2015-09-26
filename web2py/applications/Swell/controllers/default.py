@@ -5,14 +5,16 @@ def index():
     loggedInUserResults = db(loggedInUserQuery).select()
     logged_in_user_id = loggedInUserResults[0].id
     
-    #Use the ID of the logged in user to get a list of devices.
+    #Use the ID of the logged in user to get a list of devices that the user has authenticated with.
     credentialsQuery = (db.credentials.id == logged_in_user_id)
     credentialsResults = db(credentialsQuery).select()
+    devicesList = []
     for credentialsRow in credentialsResults:
         #Get the text of the email
         resourceOwnerName = credentialsRow.resourceOwner
+        devicesList.append(resourceOwnerName)
     
-    return dict(message=T('Hello World'))
+    return dict(message=T('Hello World'), devicesList = devicesList)
 
 
 def user():
