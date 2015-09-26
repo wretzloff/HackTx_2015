@@ -6,7 +6,7 @@ def index():
     logged_in_user_id = loggedInUserResults[0].id
     
     #Use the ID of the logged in user to get a list of devices that the user has authenticated with.
-    credentialsQuery = (db.credentials.id == logged_in_user_id)
+    credentialsQuery = (db.credentials.account == logged_in_user_id)
     credentialsResults = db(credentialsQuery).select()
     devicesList = []
     for credentialsRow in credentialsResults:
