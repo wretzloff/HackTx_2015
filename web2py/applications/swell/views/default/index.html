@@ -4,7 +4,9 @@
      _style='margin-top: 1em;')}}
 
 {{if len(devicesList) > 0:}}
-<h3>Devices: {{=devicesList}}</h3>
+    <h3>Devices: </h3>
+    {{for item in devicesList:}}
+        <h3>{{=item[0]}}</h3>{{pass}}
 {{else:}}
 <h3>You have no devices.</h3>
 {{pass}}
