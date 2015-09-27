@@ -27,7 +27,6 @@ def index():
 
 def redirectUri_Up():
     parameterCode = request.vars['code']
-    print parameterCode
     requestBodyParameters = {'grant_type' : 'authorization_code',
                              'code' : parameterCode,
                              'client_id' : 'GmMxBR58418',
@@ -36,7 +35,24 @@ def redirectUri_Up():
     responseFromPost = httpFunctions.postRequest('https://jawbone.com/auth/oauth2/token', requestBodyParameters)
     #Parse the response and return the data to the caller.
     responseDataInJson = responseFromPost.read()
-    print responseDataInJson
+    responseDataInArray = httpFunctions.convertJsonToArray(responseDataInJson)
+    print responseDataInArray['access_token']
+    print responseDataInArray['token_type']
+    print responseDataInArray['expires_in']
+    print responseDataInArray['refresh_token']
+    
+    #Get the ID of the logged in user so it can be used to insert a record into the database.
+    loggedInUserQuery = (db.auth_user.id == auth.user.id)
+    loggedInUserResults = db(loggedInUserQuery).select()
+    logged_in_user_id = loggedInUserResults[0].id
+    
+    #Get the ID of Up so it can be used to insert a record into the database.
+    resourceOwnerQuery = (db.resourceOwners.resourceOwnerName == 'Up')
+    resourceOwnerResults = db(resourceOwnerQuery).select()
+    resourceOwnerid = resourceOwnerResults[0].id
+    
+    #Insert the credentials
+    db.credentials.insert(account=logged_in_user_id, resourceOwner=resourceOwnerid, accessToken=responseDataInArray['access_token'], tokenType=responseDataInArray['token_type'], expiresIn=responseDataInArray['expires_in'],refreshToken=responseDataInArray['refresh_token'])
     redirect(URL('index'))
 
 def user():
