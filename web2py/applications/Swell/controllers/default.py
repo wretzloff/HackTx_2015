@@ -6,13 +6,21 @@ def index():
     logged_in_user_id = loggedInUserResults[0].id
     
     #Use the ID of the logged in user to get a list of devices that the user has authenticated with.
-    credentialsQuery = (db.credentials.account == logged_in_user_id)
-    credentialsResults = db(credentialsQuery).select()
     devicesList = []
-    for credentialsRow in credentialsResults:
+    credentialsRows = db(db.credentials.account == logged_in_user_id).select(join=db.resourceOwners.on(db.credentials.resourceOwner==db.resourceOwners.id))
+    for row in credentialsRows:
+        devicesList.append(row.resourceOwners.resourceOwnerName)
+        
+        
+    
+    #credentialsQuery = (db.credentials.account == logged_in_user_id)
+    #credentialsResults = db(credentialsQuery).select()
+    #devicesList = []
+    #for credentialsRow in credentialsResults:
         #Get the text of the email
-        resourceOwnerName = credentialsRow.resourceOwner
-        devicesList.append(resourceOwnerName)
+    #    resourceOwnerName = credentialsRow.resourceOwner
+    #    devicesList.append(resourceOwnerName)
+    
     
     return dict(message=T('Hello World'), devicesList = devicesList)
 
