@@ -16,6 +16,11 @@ def index():
         deviceListRecord.append(row.resourceOwners.id)
         devicesList.append(deviceListRecord)
     
+    #Build a list of available resource owners that are available to authenticate with.
+    #resourceOwnerRows = db(db.resourceOwners).select()
+    #for resourceOwnerRow in resourceOwnerRows:
+    #    print resourceOwnerRow.resourceOwnerName
+    
     return dict(devicesList = devicesList)
 
 
