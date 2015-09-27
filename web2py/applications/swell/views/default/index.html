@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+
+{{=A(T("Authenticate with Up"), _href='https://jawbone.com/auth/oauth2/auth?scope=basic_read+extended_read+location_read+friends_read+mood_read+mood_write+move_read+move_write+sleep_read+sleep_write+meal_read+meal_write+weight_read+weight_write+generic_event_read+generic_event_write+heartrate_read&redirect_uri=http://127.0.0.1:8000/swell/default/redirectUri_Up&response_type=code&client_id=GmMxBR58418', _class='btn',
+     _style='margin-top: 1em;')}}
+
+{{if len(devicesList) > 0:}}
+<h3>Devices: {{=devicesList}}</h3>
+{{else:}}
+<h3>You have no devices.</h3>
+{{pass}}
