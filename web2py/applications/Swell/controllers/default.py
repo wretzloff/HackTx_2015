@@ -23,6 +23,10 @@ def index():
     
     return dict(devicesList = devicesList)
 
+def redirectUri_Up():
+    parameterCode = request.vars['code']
+    print parameterCode
+    redirect(URL('index'))
 
 def user():
     """
